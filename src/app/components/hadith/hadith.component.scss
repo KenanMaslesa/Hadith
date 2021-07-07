@@ -4,6 +4,10 @@
  overflow-y: scroll;
  font-family: Montserrat,sans-serif;
 
+ @media(max-width:768px){
+ padding: 10px;
+}
+
  audio{
    display: none;
  }
@@ -43,6 +47,10 @@
         &:hover{
           color: red;
         }
+      }
+
+      .arabic{
+        margin-bottom:30px;
       }
     }
   }
