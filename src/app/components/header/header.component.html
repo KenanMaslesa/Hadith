@@ -1,0 +1,5 @@
+<header>
+  <select class="form-control" #select (change)="languageService.currentLanguage = select.value">
+    <option *ngFor="let language of languageService.languages" value="{{language}}" >{{language}}</option>
+  </select>
+</header>

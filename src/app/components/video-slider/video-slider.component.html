@@ -1,0 +1,23 @@
+    <div *ngIf="hadith.video" class="video-wrapper">
+
+      <ng-container *ngIf="hadith.video.bosnian && languageService.isBosnian">
+        <ng-container *ngFor="let slide of hadith.video.bosnian">
+          <div *ngIf="slide.link">
+            <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + slide.link)" width="1024" height="578" id="trailer" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="hadith.video.english && languageService.isEnglish">
+        <ng-container *ngFor="let slide of hadith.video.english">
+          <div *ngIf="slide.link">
+            <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + slide.link)" width="1024" height="578" id="trailer" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+          </div>
+        </ng-container>
+    </ng-container>
+    
+  </div>

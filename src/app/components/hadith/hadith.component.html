@@ -1,64 +1,57 @@
-<div class="hadith-wrapper">
-
-  <div class="hadith-content">
-
-    <div class="form-group">
-      <label>English </label>
-      <input type="checkbox" [checked]="english" (change)="english=(!english)" name="english">
-    </div>
-
-    <div class="form-group">
-      <label>Bosanski </label>
-      <input type="checkbox" [checked]="bosnian" (change)="bosnian=(!bosnian)" name="bosnian">
-    </div>
-
-    <div *ngFor="let hadith of hadiths" class="hadith">
-      <h1>{{hadith.id}}. {{hadith.name}}</h1>
-      <div style="padding-bottom: 10px;">
-        <button class="btn btn-info" (click)="setAudio(audio, 0)" *ngIf="audio.paused">Preslušaj čitav hadis</button>
-        <button class="btn btn-danger" (click)="stopAudio(audio)" *ngIf="!audio.paused">Stop</button>
-      </div>
-
-
-      <div class="arabic" dir="rtl">
-
-        <h1 class="sentence" #sentence
-          [class.active]="currentTime >= sentence.start_second && currentTime <= sentence.end_second"
-          [ngbPopover]="popContent" triggers="mouseenter:mouseleave:click"
-          (click)="setAudio(audio, sentence.start_second, sentence.end_second)"
-          *ngFor="let sentence of hadith.arabic_hadith.sentences">
-          {{sentence.arabic_text}}
-
-          <ng-template #popContent>
-            <p *ngIf="bosnian">{{sentence.bosnian_text}}</p>
-            <p *ngIf="english">{{sentence.english_text}}</p>
-          </ng-template>
-        </h1>
-      </div>
-
-      <p *ngIf="english">{{hadith.english_hadith}}</p>
-      <p *ngIf="bosnian">{{hadith.bosnian_hadith}}</p>
-
-      <audio controls #audio (timeupdate)="updateCurrentTime(audio)">
-        <source src="{{hadith.audio}}">
-      </audio>
-
-      <div *ngFor="let video of hadith.video">
-        <h1>Video</h1>
-        <ng-container *ngIf="bosnian">
-          <div *ngFor="let bosnianVideo of video.bosnian">
-            <a href="{{bosnianVideo.link}}" target="_blank">{{bosnianVideo.name}}</a>
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf="english">
-          <div *ngFor="let englishVideo of video.english">
-            <a href="{{englishVideo.link}}" target="_blank">{{englishVideo.name}}</a>
-          </div>
-        </ng-container>
-      </div>
-
+<main>
+  <div class="card-wrapper">
+    <div class="hadith-card" *ngFor="let hadith of hadiths" (click)="setActiveHadith(hadith)">
+      <span class="circle">{{hadith.id}}. </span>
+      <span *ngIf="languageService.isBosnian">{{hadith.bosnianTitle}}</span>
+      <span *ngIf="languageService.isEnglish">{{hadith.englishTitle}}</span>
     </div>
   </div>
 
-</div>
+
+  <div class="hadith-wrapper">
+
+    <div class="hadith-content">
+      <ng-container *ngFor="let hadith of hadiths">
+        <div *ngIf="hadith.id == activeHadith.id" class="hadith">
+
+          <div class="title">
+            <h1 *ngIf="languageService.isBosnian">{{hadith.id}}. {{hadith.bosnianTitle}}</h1>
+            <h1 *ngIf="languageService.isEnglish">{{hadith.id}}. {{hadith.englishTitle}}</h1>
+          </div>
+
+          <div class="icons">
+            <img src="/assets/images/play.png" (click)="setAudio(audio, 0, hadith.duration)" *ngIf="audio.paused">
+            <img src="/assets/images/stop.png" (click)="stopAudio(audio)" *ngIf="!audio.paused">
+          </div>
+
+
+          <div class="arabic">
+
+            <h1 class="sentence" #sentence
+              [class.active]="currentTime >= sentence.start_second && currentTime <= sentence.end_second"
+              [ngbTooltip]="popContent" triggers="mouseenter:mouseleave:click"
+              (click)="setAudio(audio, sentence.start_second, sentence.end_second)"
+              *ngFor="let sentence of hadith.arabic_hadith.sentences">
+              {{sentence.arabic_text}}
+
+              <ng-template #popContent class="template">
+                <p *ngIf="languageService.isBosnian">{{sentence.bosnian_text}}</p>
+                <p *ngIf="languageService.isEnglish">{{sentence.english_text}}</p>
+              </ng-template>
+            </h1>
+          </div>
+
+          <p class="translation" *ngIf="languageService.isEnglish">{{hadith.english_hadith}}</p>
+          <p class="translation" *ngIf="languageService.isBosnian">{{hadith.bosnian_hadith}}</p>
+
+          <audio controls #audio (timeupdate)="updateCurrentTime(audio)">
+            <source src="{{hadith.audio}}">
+          </audio>
+
+          <app-video-slider [hadith]="hadith"></app-video-slider>
+        </div>
+
+      </ng-container>
+    </div>
+  </div>
+</main>

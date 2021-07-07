@@ -1,0 +1,11 @@
+.video-wrapper{
+  margin-top: 50px;
+
+  iframe{
+    max-width: 100%;
+
+    @media(max-width:768px){
+      height: 230px;
+    }
+  }
+}

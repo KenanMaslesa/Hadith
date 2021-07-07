@@ -7,17 +7,21 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HadithComponent } from './components/hadith/hadith.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './components/header/header.component';
+import { VideoSliderComponent } from './components/video-slider/video-slider.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HadithComponent
+    HadithComponent,
+    HeaderComponent,
+    VideoSliderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { HadithService } from 'src/services/hadith.service';
+import { LanguageService } from 'src/services/language.service';
 
 @Component({
   selector: 'app-hadith',
@@ -13,8 +15,9 @@ export class HadithComponent implements OnInit {
   endSecond: any;
   english = true;
   bosnian = true;
+  activeHadith: any;
 
-  constructor(private hadithService: HadithService) { }
+  constructor(private hadithService: HadithService, public languageService: LanguageService, public sanitizer: DomSanitizer,) { }
 
   ngOnInit(): void {
     this.getHadiths();
@@ -42,6 +45,10 @@ export class HadithComponent implements OnInit {
   stopAudio(audio){
     audio.pause();
     audio.currentTime = 0;
+  }
+
+  setActiveHadith(hadith){
+    this.activeHadith = hadith;
   }
 
 }
