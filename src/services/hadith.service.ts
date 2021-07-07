@@ -5,10 +5,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class HadithService {
+  hadiths: any;
+  activeHadith: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.getHadiths();
+  }
 
   getHadiths(){
-    return this.http.get('assets/hadiths.json');
+    return this.http.get('assets/hadiths.json').subscribe(response => this.hadiths = response);
   }
 }

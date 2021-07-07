@@ -9,7 +9,6 @@ import { LanguageService } from 'src/services/language.service';
   styleUrls: ['./hadith.component.scss']
 })
 export class HadithComponent implements OnInit {
-  hadiths: any;
   currentTime: any;
   startSecond: any;
   endSecond: any;
@@ -17,16 +16,9 @@ export class HadithComponent implements OnInit {
   bosnian = true;
   activeHadith: any;
 
-  constructor(private hadithService: HadithService, public languageService: LanguageService, public sanitizer: DomSanitizer,) { }
+  constructor(public hadithService: HadithService, public languageService: LanguageService, public sanitizer: DomSanitizer,) { }
 
   ngOnInit(): void {
-    this.getHadiths();
-  }
-
-  getHadiths(){
-    this.hadithService.getHadiths().subscribe(response => {
-      this.hadiths = response;
-    });
   }
 
   setAudio(audio, startSecond, endSecond){

@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LanguageService {
-  languages = ["english", "bosanski"];
-  currentLanguage = "english";
+  languages = ["bosanski", "english"];
+  currentLanguage = "bosanski";
 
   constructor() { }
 

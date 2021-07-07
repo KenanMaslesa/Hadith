@@ -1,18 +1,10 @@
 <main>
-  <div class="card-wrapper">
-    <div class="hadith-card" *ngFor="let hadith of hadiths" (click)="setActiveHadith(hadith)">
-      <span class="circle">{{hadith.id}}. </span>
-      <span *ngIf="languageService.isBosnian">{{hadith.bosnianTitle}}</span>
-      <span *ngIf="languageService.isEnglish">{{hadith.englishTitle}}</span>
-    </div>
-  </div>
-
 
   <div class="hadith-wrapper">
 
     <div class="hadith-content">
-      <ng-container *ngFor="let hadith of hadiths">
-        <div *ngIf="hadith.id == activeHadith.id" class="hadith">
+      <ng-container *ngFor="let hadith of hadithService.hadiths">
+        <div *ngIf="hadith.id == hadithService.activeHadith.id" class="hadith">
 
           <div class="title">
             <h1 *ngIf="languageService.isBosnian">{{hadith.id}}. {{hadith.bosnianTitle}}</h1>

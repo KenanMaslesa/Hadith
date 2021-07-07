@@ -1,4 +1,12 @@
 <header>
+  <div class="card-wrapper">
+    <div class="hadith-card" *ngFor="let hadith of hadithService.hadiths" (click)="hadithService.activeHadith = hadith">
+      <span class="circle">{{hadith.id}}. </span>
+      <span *ngIf="languageService.isBosnian">{{hadith.bosnianTitle}}</span>
+      <span *ngIf="languageService.isEnglish">{{hadith.englishTitle}}</span>
+    </div>
+  </div>
+
   <select class="form-control" #select (change)="languageService.currentLanguage = select.value">
     <option *ngFor="let language of languageService.languages" value="{{language}}" >{{language}}</option>
   </select>

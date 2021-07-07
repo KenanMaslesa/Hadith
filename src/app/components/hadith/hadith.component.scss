@@ -1,11 +1,11 @@
 main{
   padding: 50px;
-  padding-top: 0;
   height: 100%;
   overflow-y: auto;
+  padding-top: 20px;
 
   @media (max-width: 768px) {
-    padding: 0;
+    padding: 0 0 120px 0;
   }
   
   &::-webkit-scrollbar {
@@ -22,61 +22,6 @@ main{
     
     background: #fbfbfb; 
   } 
-
-  .card-wrapper{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    width: 80%;
-    margin-bottom: 40px;
-    overflow-x: auto;
-    padding-bottom: 15px;
-
-    @media (max-width: 768px) {
-     width: 100%;
-     justify-content: unset;
-    }
-  
-    .hadith-card{
-      background-color: #fbfbfb;
-      border: 1px solid #ebebed;
-      border-radius: 6px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      margin: 2px;
-      transition: all 0.5s;
-      cursor: pointer;
-      min-width: 180px;
-      min-height: 80px;
-      max-height: 80px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      position: relative;
-
-      .circle{
-        background: #cbc2bd;
-        border-radius: 50%;
-        width: 25px;
-        color: white;
-        text-align: center;
-        margin-right: 3px;
-
-        @media (max-width: 768px) {
-          position: absolute;
-          right: -3px;
-          top: 0;
-         }
-      }
-  
-      &:hover{
-        box-shadow: 0 2px 3px 0 #e1e1e4;
-        transform: translateY(-2px);
-      }
-    }
-  }
   
   .hadith-wrapper {
     font-family: Montserrat, sans-serif;
