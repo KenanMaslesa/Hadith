@@ -1,0 +1,64 @@
+<div class="hadith-wrapper">
+
+  <div class="hadith-content">
+
+    <div class="form-group">
+      <label>English </label>
+      <input type="checkbox" [checked]="english" (change)="english=(!english)" name="english">
+    </div>
+
+    <div class="form-group">
+      <label>Bosanski </label>
+      <input type="checkbox" [checked]="bosnian" (change)="bosnian=(!bosnian)" name="bosnian">
+    </div>
+
+    <div *ngFor="let hadith of hadiths" class="hadith">
+      <h1>{{hadith.id}}. {{hadith.name}}</h1>
+      <div style="padding-bottom: 10px;">
+        <button class="btn btn-info" (click)="setAudio(audio, 0)" *ngIf="audio.paused">Preslušaj čitav hadis</button>
+        <button class="btn btn-danger" (click)="stopAudio(audio)" *ngIf="!audio.paused">Stop</button>
+      </div>
+
+
+      <div class="arabic" dir="rtl">
+
+        <h1 class="sentence" #sentence
+          [class.active]="currentTime >= sentence.start_second && currentTime <= sentence.end_second"
+          [ngbPopover]="popContent" triggers="mouseenter:mouseleave:click"
+          (click)="setAudio(audio, sentence.start_second, sentence.end_second)"
+          *ngFor="let sentence of hadith.arabic_hadith.sentences">
+          {{sentence.arabic_text}}
+
+          <ng-template #popContent>
+            <p *ngIf="bosnian">{{sentence.bosnian_text}}</p>
+            <p *ngIf="english">{{sentence.english_text}}</p>
+          </ng-template>
+        </h1>
+      </div>
+
+      <p *ngIf="english">{{hadith.english_hadith}}</p>
+      <p *ngIf="bosnian">{{hadith.bosnian_hadith}}</p>
+
+      <audio controls #audio (timeupdate)="updateCurrentTime(audio)">
+        <source src="{{hadith.audio}}">
+      </audio>
+
+      <div *ngFor="let video of hadith.video">
+        <h1>Video</h1>
+        <ng-container *ngIf="bosnian">
+          <div *ngFor="let bosnianVideo of video.bosnian">
+            <a href="{{bosnianVideo.link}}" target="_blank">{{bosnianVideo.name}}</a>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="english">
+          <div *ngFor="let englishVideo of video.english">
+            <a href="{{englishVideo.link}}" target="_blank">{{englishVideo.name}}</a>
+          </div>
+        </ng-container>
+      </div>
+
+    </div>
+  </div>
+
+</div>
